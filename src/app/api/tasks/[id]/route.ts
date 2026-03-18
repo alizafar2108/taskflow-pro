@@ -8,13 +8,12 @@ export async function PUT(
   try {
     const params = await context.params
     const body = await req.json()
-    const task = await prisma.task.update({
+    const project = await prisma.project.update({
       where: { id: Number(params.id) },
       data: body
     })
-    return NextResponse.json(task)
+    return NextResponse.json(project)
   } catch (error: any) {
-    console.error('PUT ERROR:', error.message)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
@@ -25,12 +24,11 @@ export async function DELETE(
 ) {
   try {
     const params = await context.params
-    await prisma.task.delete({
+    await prisma.project.delete({
       where: { id: Number(params.id) }
     })
     return NextResponse.json({ success: true })
   } catch (error: any) {
-    console.error('DELETE ERROR:', error.message)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
